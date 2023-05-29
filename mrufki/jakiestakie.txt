@@ -1,0 +1,44 @@
+type mrufka struct{
+		id string
+		x int32
+		y int32
+		color uint32
+	}
+	var mrufki [10]mrufka
+
+	mrufki[0] = mrufka{"prime",0,0,0}
+
+	maxx,maxy := flag.Int("maxx",800,""),flag.Int("maxy",600,"")
+	flag.Parse()
+	if err := sdl.Init(sdl.INIT_EVERYTHING); err != nil{
+		panic(err)
+	}
+
+	defer sdl.Quit()
+
+	window, err := sdl.CreateWindow("window",sdl.WINDOWPOS_UNDEFINED,sdl.WINDOWPOS_UNDEFINED,int32(*maxx),int32(*maxy),sdl.WINDOW_SHOWN)
+	if err != nil{
+		panic(err)
+	}
+
+	defer window.Destroy()
+
+	surface, err := window.GetSurface()
+	if err != nil{
+		panic(err)
+	}
+	surface.FillRect(nil,0xffffff)
+	window.UpdateSurface()
+	running := true
+	var x int32 = 100
+	var y int32 = 100
+	for running{
+		x = (x+int32(rand.Intn(2)))%int32(*maxx)
+		y = (y+int32(rand.Intn(2)))%int32(*maxy)
+		rect := sdl.Rect{x,y,5,5}
+		surface.FillRect(&rect,0)
+		window.UpdateSurface()
+		
+		
+
+	}
